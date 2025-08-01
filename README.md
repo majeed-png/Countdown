@@ -1,2 +1,0 @@
-# Countdown
-A cowntdown!
