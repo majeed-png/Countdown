@@ -1,18 +1,20 @@
-# Patch a refined version (v2) addressing: light theme left gap, settings z-index, remove kittens option, and ensure no overflow.
-html = r"""<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="color-scheme" content="light dark">
-<title<العد التنازلي ليوم ميلاد عبدالمجيد 🎂</title>
+<title>العدّ التنازلي ليوم ميلادك 🎂</title>
 <meta name="description" content="عدّ تنازلي أنيق ليوم 2 سبتمبر يعمل دون إنترنت وعلى كل الأجهزة، قابل للتخصيص بالكامل (اسمك، الثيم، الألوان) ومضبوط على توقيت الرياض." />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎂</text></svg>">
 <meta name="theme-color" content="#0b0b0f" id="themeColor">
 <style>
+  /* =========== Theme Variables (Default: Dark) =========== */
   :root{
     --bg1:#0f0f11;
     --bg2:#1b1b20;
+    --tone1:#2a2139;   /* background radial tint */
+    --tone2:#223a5e;
     --amoled:#000;
     --accent:#FF7EDB;
     --accent2:#7CF5FF;
@@ -22,20 +24,35 @@ html = r"""<!DOCTYPE html>
     --glass: rgba(255,255,255,0.08);
     --shadow: 0 30px 50px rgba(0,0,0,0.35);
     --radius: 18px;
+    --panel-bg: rgba(16,16,22,.78); /* settings panel */
+    --border-soft: rgba(255,255,255,0.10);
+    --progress-bg:#23232a;
   }
-  @media (prefers-color-scheme: light){
-    :root{
-      --bg1:#fafafa; --bg2:#f0f2f6; --text:#141418; --sub:#5a5a66;
-      --card:#ffffffd9; --glass: rgba(0,0,0,.06);
-    }
+  /* Manual Light Theme Override */
+  body.theme-light{
+    --bg1:#fafafa;
+    --bg2:#f0f2f6;
+    --tone1:#e8edff;  /* light pastel tints so it won't look dark */
+    --tone2:#ffe6f6;
+    --text:#141418;
+    --sub:#52525b;
+    --card:#ffffffd9;
+    --glass: rgba(0,0,0,.06);
+    --panel-bg: rgba(15,15,20,.82); /* keep panel slightly dark for contrast */
+    --border-soft: rgba(0,0,0,0.10);
+    --progress-bg:#e5e7eb;
   }
+  /* Manual Dark (non-amoled) */
+  body.theme-dark{ /* nothing special, use defaults */ }
+  body.theme-amoled{ background: #000 !important; }
+
   *{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
   html,body{height:100%; margin:0; overflow-x:hidden;}
   body{
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
     background:
-      radial-gradient(1200px 800px at 20% 10%, #2a2139 0%, transparent 40%),
-      radial-gradient(1000px 700px at 80% 10%, #223a5e 0%, transparent 45%),
+      radial-gradient(1200px 800px at 20% 10%, var(--tone1) 0%, transparent 40%),
+      radial-gradient(1000px 700px at 80% 10%, var(--tone2) 0%, transparent 45%),
       linear-gradient(160deg, var(--bg1), var(--bg2));
     color:var(--text);
     display:flex;
@@ -43,7 +60,6 @@ html = r"""<!DOCTYPE html>
     justify-content:center;
     padding:max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
   }
-  body.amoled{ background: var(--amoled) }
   .wrap{ width:100%; max-width:980px; text-align:center; margin-inline:auto; }
   header{ margin-bottom:18px; }
   .badge{
@@ -57,18 +73,17 @@ html = r"""<!DOCTYPE html>
   .card{
     position:relative;
     margin-inline:auto; background:linear-gradient(180deg, var(--glass), rgba(255,255,255,0.03));
-    border:1px solid rgba(255,255,255,0.08); border-radius:var(--radius);
+    border:1px solid var(--border-soft); border-radius:var(--radius);
     padding:20px 16px; box-shadow: var(--shadow); backdrop-filter: blur(10px);
   }
   .grid{ display:grid; grid-template-columns: repeat(4, minmax(120px, 1fr)); gap:12px; }
   .box{
-    position:relative; border:1px solid rgba(255,255,255,0.08); border-radius:14px;
-    padding:18px 12px; background:#0b0b0f80; overflow:hidden;
+    position:relative; border:1px solid var(--border-soft); border-radius:14px;
+    padding:18px 12px; background:color-mix(in srgb, var(--bg1), transparent 70%); overflow:hidden;
   }
-  body.light .box{background:#ffffff9e; border-color:#00000012}
   .num{ font-size: clamp(34px, 7vw, 64px); font-weight:900; line-height:1; letter-spacing:.5px; }
   .lbl{ margin-top:8px; color:var(--sub); font-weight:700; }
-  .progress{ margin-top:16px; height:8px; border-radius:999px; background:#23232a; overflow:hidden; border:1px solid rgba(255,255,255,0.07); }
+  .progress{ margin-top:16px; height:8px; border-radius:999px; background:var(--progress-bg); overflow:hidden; border:1px solid var(--border-soft); }
   .bar{ height:100%; width:0%; background:linear-gradient(90deg, var(--accent), var(--accent2)); transition: width .6s ease; }
   .target{ margin-top:14px; color:var(--sub); font-size:14px; }
   footer{ margin-top:14px; color:var(--sub); font-size:13px; }
@@ -76,27 +91,31 @@ html = r"""<!DOCTYPE html>
   .btns{ margin-top:16px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
   button.btn{
     cursor:pointer; border:none; padding:11px 16px; border-radius:12px; font-weight:800;
-    background:linear-gradient(90deg, var(--accent), var(--accent2));
+    background:linear-gradient(90deg, var(--accent), var(--accent2)); color:#0b0b0d;
   }
-  .ghost{ background:transparent; color:var(--text); border:1px solid rgba(255,255,255,0.12); }
+  .ghost{ background:transparent; color:var(--text); border:1px solid var(--border-soft); }
   .iconbtn{
     position:fixed; top: max(12px, env(safe-area-inset-top)); inset-inline-start: max(12px, env(safe-area-inset-left));
-    background: #00000055; border:1px solid #ffffff29; border-radius:12px; padding:8px 10px; cursor:pointer;
+    background: color-mix(in srgb, #000, transparent 45%);
+    border:1px solid color-mix(in srgb, #fff, transparent 75%);
+    border-radius:12px; padding:8px 10px; cursor:pointer;
     color: #fff; display:flex; align-items:center; gap:6px; font-weight:700; backdrop-filter: blur(8px);
     z-index: 10020;
   }
   .panel{
     position:fixed; inset-inline-start: max(12px, env(safe-area-inset-left)); top:calc(max(12px, env(safe-area-inset-top)) + 46px);
-    width:min(320px, 92vw);
-    background:linear-gradient(180deg, var(--glass), rgba(255,255,255,0.03));
-    border:1px solid rgba(255,255,255,0.1); border-radius:14px; box-shadow: var(--shadow);
+    width:min(340px, 92vw);
+    background: var(--panel-bg);
+    border:1px solid var(--border-soft); border-radius:14px; box-shadow: var(--shadow);
     padding:12px; display:none; text-align:start;
-    z-index: 10010; /* فوق كل شيء */
+    z-index: 10010;
+    color: var(--text);
+    backdrop-filter: blur(14px);
   }
   .panel.open{ display:block; }
   .row{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:8px 4px; }
-  .row label{ font-weight:700; font-size:14px }
-  .row input[type="text"]{ flex:1; padding:8px; border-radius:10px; border:1px solid rgba(255,255,255,0.15); background:transparent; color:var(--text); }
+  .row label{ font-weight:800; font-size:14px }
+  .row input[type="text"]{ flex:1; padding:8px; border-radius:10px; border:1px solid var(--border-soft); background:transparent; color:var(--text); }
   .colors{ display:flex; gap:8px; flex-wrap:wrap; margin-top:6px; }
   .sw{ width:28px; height:28px; border-radius:50%; border:2px solid #ffffffaa; cursor:pointer; }
   .switch{ position:relative; width:48px; height:28px; border-radius:999px; background:#2a2a33; border:1px solid #ffffff24; }
@@ -104,10 +123,8 @@ html = r"""<!DOCTYPE html>
   .knob{ position:absolute; top:2px; inset-inline-start:2px; width:24px; height:24px; border-radius:50%; background:#fff; transition: all .2s ease; }
   .switch input:checked + .knob{ inset-inline-start:22px; }
   .hint{ color:var(--sub); font-size:12px; margin-top:4px }
-  .sr-only{
-    position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
-  }
-  #confetti{ position:fixed; inset:0; pointer-events:none; z-index: 50; } /* أبقيه تحت لوحة الإعدادات */
+  .sr-only{ position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+  #confetti{ position:fixed; inset:0; pointer-events:none; z-index: 50; }
   @media (max-width:640px){ .grid{grid-template-columns: repeat(2,1fr);} }
 </style>
 </head>
@@ -193,7 +210,7 @@ html = r"""<!DOCTYPE html>
 <script>
 (function(){
   // --- ثابت التوقيت
-  const timeZone = "Asia/Riyadh"; // ثابت كما طلبت
+  const timeZone = "Asia/Riyadh";
   const MONTH = 8; // سبتمبر = 8 (0-index)
   const DAY = 2;
 
@@ -217,18 +234,17 @@ html = r"""<!DOCTYPE html>
   const stg = JSON.parse(localStorage.getItem('majoodi@countdown') || 'null') || defaults;
   function save(){ localStorage.setItem('majoodi@countdown', JSON.stringify(stg)); }
 
-  // --- تطبيق الثيم والألوان
+  // --- تطبيق الثيم والألوان (مع كلاس theme-*) 
   function applyTheme(){
-    document.body.classList.remove('light','dark','amoled');
-    if(stg.theme === 'dark'){ document.body.classList.add('dark'); themeColorMeta.content = '#0b0b0f'; }
-    else if(stg.theme === 'light'){ document.body.classList.add('light'); themeColorMeta.content = '#fafafa'; }
-    else if(stg.theme === 'amoled'){ document.body.classList.add('amoled'); themeColorMeta.content = '#000000'; }
-    else{ // auto
-      const prefersLight = matchMedia('(prefers-color-scheme: light)').matches;
-      document.body.classList.toggle('light', prefersLight);
-      document.body.classList.toggle('dark', !prefersLight);
-      themeColorMeta.content = prefersLight ? '#fafafa' : '#0b0b0f';
+    document.body.classList.remove('theme-light','theme-dark','theme-amoled');
+    let mode = stg.theme;
+    if(mode === 'auto'){
+      mode = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
     }
+    if(mode === 'light'){ document.body.classList.add('theme-light'); themeColorMeta.content = '#fafafa'; }
+    else if(mode === 'amoled'){ document.body.classList.add('theme-amoled'); themeColorMeta.content = '#000000'; }
+    else { document.body.classList.add('theme-dark'); themeColorMeta.content = '#0b0b0f'; }
+
     document.documentElement.style.setProperty('--accent', stg.accent1);
     document.documentElement.style.setProperty('--accent2', stg.accent2);
   }
@@ -367,7 +383,7 @@ html = r"""<!DOCTYPE html>
     tText.textContent = `الوجهة: ${f.format(target)} — الآن: ${f.format(now)}`;
   }
 
-  // --- احتفال صوتي صغير (مؤقت/صامت لو المتصفح يمنع التشغيل)
+  // --- احتفال صوتي صغير (صامت إذا المتصفح منع)
   const audioData = "data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
   let played = false;
   function celebrate(){
@@ -451,7 +467,7 @@ END:VCALENDAR`;
     n.textContent = msg;
     n.style.position='fixed'; n.style.bottom='24px'; n.style.right='24px';
     n.style.background='rgba(20,20,26,.92)'; n.style.padding='10px 14px';
-    n.style.border='1px solid rgba(255,255,255,.12)'; n.style.borderRadius='10px';
+    n.style.border='1px solid var(--border-soft)'; n.style.borderRadius='10px';
     n.style.zIndex='20000'; n.style.boxShadow='var(--shadow)'; n.style.color='#fff';
     document.body.appendChild(n);
     setTimeout(()=>n.remove(), 2200);
@@ -467,8 +483,3 @@ END:VCALENDAR`;
 </script>
 </body>
 </html>
-"""
-with open('/mnt/data/majoodi_birthday_countdown_plus_v2.html', 'w', encoding='utf-8') as f:
-    f.write(html)
-
-'/mnt/data/majoodi_birthday_countdown_plus_v2.html'
