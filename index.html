@@ -6,10 +6,9 @@
 <meta name="color-scheme" content="light dark">
 <title>العدّ التنازلي ليوم ميلاد عبدالمجيد 💚</title>
 <meta name="description" content="عدّ تنازلي أنيق ليوم 2 سبتمبر (يوم ميلاد عبدالمجيد) يعمل دون إنترنت، قابل لتغيير الثيم والألوان، ومضبوط على توقيت الرياض." />
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎂</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💚</text></svg>">
 <meta name="theme-color" content="#0b0b0f" id="themeColor">
 <style>
-  /* =========== Theme Variables (Default: Dark) =========== */
   :root{
     --bg1:#0f0f11;
     --bg2:#1b1b20;
@@ -27,6 +26,7 @@
     --panel-bg: rgba(16,16,22,.9);
     --border-soft: rgba(255,255,255,0.10);
     --progress-bg:#23232a;
+    --btntext:#0b0b0d; /* dynamic */
   }
   body.theme-light{
     --bg1:#ffffff;
@@ -37,7 +37,7 @@
     --sub:#141418;
     --card:#ffffffee;
     --glass: rgba(0,0,0,.05);
-    --panel-bg: rgba(15,15,20,.92);  /* keep panel dark */
+    --panel-bg: rgba(15,15,20,.92);
     --border-soft: rgba(0,0,0,0.12);
     --progress-bg:#e7e9ee;
   }
@@ -63,7 +63,7 @@
     display:inline-flex; align-items:center; gap:8px;
     padding:8px 14px; border-radius:999px;
     background:linear-gradient(90deg, var(--accent), var(--accent2));
-    color:#0b0b0d; font-weight:800; box-shadow: var(--shadow);
+    color:var(--btntext); font-weight:800; box-shadow: var(--shadow);
   }
   h1{ margin:12px 0 6px; font-size: clamp(28px, 4.8vw, 48px); letter-spacing: .3px; }
   .sub{ margin:8px 0 16px; color:var(--sub) }
@@ -88,7 +88,7 @@
   .btns{ margin-top:16px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
   button.btn{
     cursor:pointer; border:none; padding:11px 16px; border-radius:12px; font-weight:800;
-    background:linear-gradient(90deg, var(--accent), var(--accent2)); color:#0b0b0d;
+    background:linear-gradient(90deg, var(--accent), var(--accent2)); color:var(--btntext);
   }
   .ghost{ background:transparent; color:var(--text); border:1px solid var(--border-soft); }
   .iconbtn{
@@ -99,6 +99,12 @@
     color: #fff; display:flex; align-items:center; gap:6px; font-weight:700; backdrop-filter: blur(8px);
     z-index: 10020;
   }
+  /* Backdrop behind settings */
+  #backdrop{
+    position:fixed; inset:0; background:rgba(0,0,0,.35); backdrop-filter: blur(2px);
+    display:none; z-index:10005;
+  }
+  #backdrop.show{ display:block; }
   .panel{
     position:fixed; inset-inline-start: max(12px, env(safe-area-inset-left)); top:calc(max(12px, env(safe-area-inset-top)) + 46px);
     width:min(340px, 92vw);
@@ -121,7 +127,6 @@
   .sr-only{ position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
   #confetti{ position:fixed; inset:0; pointer-events:none; z-index: 50; }
   @media (max-width:640px){ .grid{grid-template-columns: repeat(2,1fr);} }
-  /* Light theme forces black text everywhere (outside panel) */
   body.theme-light, body.theme-light .wrap, body.theme-light .card, body.theme-light header, 
   body.theme-light h1, body.theme-light .num, body.theme-light .lbl, body.theme-light .target,
   body.theme-light footer, body.theme-light .ghost { color:#141418; }
@@ -129,7 +134,8 @@
 </head>
 <body>
   <button class="iconbtn" id="gear" aria-expanded="false" aria-controls="panel" title="الإعدادات">⚙️ إعدادات</button>
-  <section class="panel" id="panel" role="region" aria-label="لوحة الإعدادات">
+  <div id="backdrop" aria-hidden="true"></div>
+  <section class="panel" id="panel" role="dialog" aria-label="لوحة الإعدادات">
     <div class="row">
       <label>الثيم:</label>
       <div style="display:flex; gap:8px; flex-wrap:wrap">
@@ -143,7 +149,7 @@
       <div>
         <label>الألوان:</label>
         <div class="colors" id="colorPresets"></div>
-        <div class="hint">يمكنك اختيار لونين متدرّجين</div>
+        <div class="hint">اختر لونين متدرّجين للزراير والشارة</div>
       </div>
       <div style="display:flex; flex-direction:column; gap:6px">
         <input type="color" id="c1" value="#FF7EDB" title="اللون 1">
@@ -164,7 +170,7 @@
     <header>
       <span class="badge">يوم ميلاد عبدالمجيد 🎉</span>
       <h1>العدّ التنازلي إلى <span id="dateTitle">2 سبتمبر</span></h1>
-      <p class="sub">كل ثانية تقرّبنا من عمر جديد! 💚 </p>
+      <p class="sub">كل ثانية تقرّبنا من عمر جديد! 💚</p>
     </header>
 
     <main class="card">
@@ -187,7 +193,7 @@
       <div class="progress" title="كم بقّى؟"><div class="bar" id="bar"></div></div>
 
       <p class="target" id="targetText">...</p>
-      <h2 class="boom" id="boom">كل عام وأنت بخير يا عبدالمجيد! 🥳</h2>
+      <h2 class="boom" id="boom">كل عام وأنت بخير يا عبدالمجيد! 🥳💚</h2>
 
       <div class="btns">
         <button class="btn" id="exportPNG">تصدير كصورة</button>
@@ -199,7 +205,7 @@
       <canvas id="confetti"></canvas>
     </main>
 
-    <footer>يُحدّث كل ثانية بتوقيت الرياض (UTC+3) • عبدالمجيد الثويني • صنع بحب 💜</footer>
+    <footer>يُحدّث كل ثانية بتوقيت الرياض (UTC+3) • يعمل دون إنترنت • صنع بحب 💜</footer>
   </div>
 
 <script>
@@ -215,10 +221,13 @@
   const boom = document.getElementById('boom');
   const bar = document.getElementById('bar');
   const themeColorMeta = document.getElementById('themeColor');
+  const panel = document.getElementById('panel');
+  const gear = document.getElementById('gear');
+  const backdrop = document.getElementById('backdrop');
 
   // --- إعدادات (بدون اسم)
   const defaults = {
-    theme: 'auto', // auto | dark | light | amoled
+    theme: 'auto',
     accent1: '#FF7EDB',
     accent2: '#7CF5FF',
     reduced: matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -226,31 +235,54 @@
   const stg = JSON.parse(localStorage.getItem('majoodi@countdown') || 'null') || defaults;
   function save(){ localStorage.setItem('majoodi@countdown', JSON.stringify(stg)); }
 
-  // --- تطبيق الثيم والألوان
+  // --- مساعدات ألوان
+  function hexToRgb(hex){
+    hex = hex.replace('#','');
+    if(hex.length===3){ hex = hex.split('').map(x=>x+x).join(''); }
+    const num = parseInt(hex,16);
+    return { r:(num>>16)&255, g:(num>>8)&255, b:num&255 };
+  }
+  function luminance({r,g,b}){
+    const srgb = [r/255,g/255,b/255].map(v => v<=0.03928 ? v/12.92 : Math.pow((v+0.055)/1.055,2.4));
+    return 0.2126*srgb[0] + 0.7152*srgb[1] + 0.0722*srgb[2];
+  }
+  function contrastRatio(l1,l2){
+    const L1 = Math.max(l1,l2), L2 = Math.min(l1,l2);
+    return (L1+0.05)/(L2+0.05);
+  }
+  function pickTextForGradient(aHex,bHex){
+    const a = luminance(hexToRgb(aHex));
+    const b = luminance(hexToRgb(bHex));
+    const mid = (a+b)/2;
+    const whiteContrast = contrastRatio(1, mid);
+    const blackContrast = contrastRatio(mid, 0);
+    return whiteContrast >= blackContrast ? '#ffffff' : '#0b0b0d';
+  }
+
+  // --- تطبيق الثيم والألوان + نص ديناميكي
   function applyTheme(){
     document.body.classList.remove('theme-light','theme-dark','theme-amoled');
     let mode = stg.theme;
-    if(mode === 'auto'){
-      mode = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-    }
+    if(mode === 'auto'){ mode = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'; }
     if(mode === 'light'){ document.body.classList.add('theme-light'); themeColorMeta.content = '#ffffff'; }
     else if(mode === 'amoled'){ document.body.classList.add('theme-amoled'); themeColorMeta.content = '#000000'; }
     else { document.body.classList.add('theme-dark'); themeColorMeta.content = '#0b0b0f'; }
 
     document.documentElement.style.setProperty('--accent', stg.accent1);
     document.documentElement.style.setProperty('--accent2', stg.accent2);
+    const btnText = pickTextForGradient(stg.accent1, stg.accent2);
+    document.documentElement.style.setProperty('--btntext', btnText);
   }
 
   // --- واجهة الإعدادات
-  const gear = document.getElementById('gear');
-  const panel = document.getElementById('panel');
   const c1 = document.getElementById('c1');
   const c2 = document.getElementById('c2');
   const reduced = document.getElementById('reduced');
   const presetsEl = document.getElementById('colorPresets');
   const presetPairs = [
     ['#FF7EDB','#7CF5FF'], ['#FFB703','#FB5607'], ['#22C55E','#06B6D4'],
-    ['#A78BFA','#60A5FA'], ['#F43F5E','#F59E0B'], ['#14B8A6','#84CC16']
+    ['#A78BFA','#60A5FA'], ['#F43F5E','#F59E0B'], ['#14B8A6','#84CC16'],
+    ['#0EA5E9','#1E293B'], ['#000000','#434343'], ['#111827','#6366F1']
   ];
   presetPairs.forEach(([a,b])=>{
     const w = document.createElement('div'); w.style.display='flex'; w.style.gap='6px';
@@ -262,20 +294,30 @@
     presetsEl.appendChild(w);
   });
   document.querySelectorAll('[data-theme]').forEach(btn=>{
-    btn.addEventListener('click',()=>{ stg.theme = btn.dataset.theme; applyTheme(); save(); notify('تم التخصيص'); });
+    btn.addEventListener('click',()=>{ stg.theme = btn.dataset.theme; applyTheme(); save(); notify('تم تطبيق الثيم'); });
   });
   document.getElementById('save').onclick = () => {
     stg.accent1 = c1.value; stg.accent2 = c2.value;
     stg.reduced = !!reduced.checked;
     applyTheme(); save(); notify('تم الحفظ ✅');
   };
-  gear.onclick = ()=>{
-    const open = !panel.classList.contains('open');
+  function setPanel(open){
     panel.classList.toggle('open', open);
+    backdrop.classList.toggle('show', open);
     gear.setAttribute('aria-expanded', String(open));
-  };
+  }
+  gear.onclick = ()=>{ setPanel(!panel.classList.contains('open')); };
+  backdrop.addEventListener('click', ()=> setPanel(false));
+  // Close on click outside (fallback if no backdrop)
+  document.addEventListener('click', (e)=>{
+    if(!panel.classList.contains('open')) return;
+    if(panel.contains(e.target) || e.target === gear || backdrop.contains(e.target)) return;
+    setPanel(false);
+  }, true);
+  // Close on ESC
+  document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') setPanel(false); });
 
-  // تهيئة الحقول
+  // Init fields
   c1.value = stg.accent1; c2.value = stg.accent2; reduced.checked = stg.reduced;
 
   // --- الوقت في الرياض
@@ -361,7 +403,7 @@
     document.getElementById('seconds').textContent = pad(sec);
 
     const f = new Intl.DateTimeFormat('ar-SA', { timeZone, dateStyle: 'full', timeStyle: 'short' });
-    tText.textContent = `الموعد: ${f.format(target)} — الآن: ${f.format(now)}`;
+    tText.textContent = `الوجهة: ${f.format(target)} — الآن: ${f.format(now)}`;
   }
 
   // --- صوت بسيط
@@ -378,13 +420,13 @@
     const text = location.href;
     try {
       if(navigator.share && location.protocol !== 'file:'){
-        await navigator.share({ title: document.title, text: 'موعد يوم ميلاد عبدالمجيد!', url: text });
+        await navigator.share({ title: document.title, text: 'موعد يوم ميلاد عبدالمجيد 💚', url: text });
         return;
       }
       await navigator.clipboard.writeText(text);
       notify('تم نسخ الرابط!');
     } catch {
-      notify('قد لا يُسمح بالنسخ التلقائي في الملفات المحلية , جرب نسخ الرابط بنفسك.');
+      notify('قد لا يُسمح بالنسخ التلقائي في الملفات المحلية — انسخه يدويًا لو سمحت.');
     }
   });
 
@@ -400,8 +442,8 @@ BEGIN:VEVENT
 DTSTART:${y}0902T000000
 DTEND:${y}0902T235900
 RRULE:FREQ=YEARLY;BYMONTH=9;BYMONTHDAY=2
-SUMMARY:يوم ميلاد عبدالمجيد!
-DESCRIPTION:لا تنسَ تقول: كل عام وأنت بخير! 🥳
+SUMMARY:يوم ميلاد عبدالمجيد 💚
+DESCRIPTION:لا تنسَ تقول: كل عام وأنا بخير! 🥳
 END:VEVENT
 END:VCALENDAR`;
     const blob = new Blob([ics], {type:'text/calendar'});
