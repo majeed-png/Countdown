@@ -162,9 +162,9 @@
 
   <div class="wrap">
     <header>
-      <span class="badge">عيد ميلاد عبدالمجيد 🎉</span>
+      <span class="badge">يوم ميلاد عبدالمجيد 🎉</span>
       <h1>العدّ التنازلي إلى <span id="dateTitle">2 سبتمبر</span></h1>
-      <p class="sub">كل ثانية تقرّبنا من الكيكة 🎂</p>
+      <p class="sub">كل ثانية تقرّبنا من عمر جديد! 💚 </p>
     </header>
 
     <main class="card">
@@ -187,7 +187,7 @@
       <div class="progress" title="كم بقّى؟"><div class="bar" id="bar"></div></div>
 
       <p class="target" id="targetText">...</p>
-      <h2 class="boom" id="boom">كل عام وأنت بخير يا عبدالمجيد! 🥳🎂</h2>
+      <h2 class="boom" id="boom">كل عام وأنت بخير يا عبدالمجيد! 🥳</h2>
 
       <div class="btns">
         <button class="btn" id="exportPNG">تصدير كصورة</button>
@@ -199,7 +199,7 @@
       <canvas id="confetti"></canvas>
     </main>
 
-    <footer>يُحدّث كل ثانية بتوقيت الرياض (UTC+3) • يعمل دون إنترنت • صنع بحب 💜</footer>
+    <footer>يُحدّث كل ثانية بتوقيت الرياض (UTC+3) • عبدالمجيد الثويني • صنع بحب 💜</footer>
   </div>
 
 <script>
@@ -262,7 +262,7 @@
     presetsEl.appendChild(w);
   });
   document.querySelectorAll('[data-theme]').forEach(btn=>{
-    btn.addEventListener('click',()=>{ stg.theme = btn.dataset.theme; applyTheme(); save(); notify('تم تطبيق الثيم'); });
+    btn.addEventListener('click',()=>{ stg.theme = btn.dataset.theme; applyTheme(); save(); notify('تم التخصيص'); });
   });
   document.getElementById('save').onclick = () => {
     stg.accent1 = c1.value; stg.accent2 = c2.value;
@@ -361,7 +361,7 @@
     document.getElementById('seconds').textContent = pad(sec);
 
     const f = new Intl.DateTimeFormat('ar-SA', { timeZone, dateStyle: 'full', timeStyle: 'short' });
-    tText.textContent = `الوجهة: ${f.format(target)} — الآن: ${f.format(now)}`;
+    tText.textContent = `الموعد: ${f.format(target)} — الآن: ${f.format(now)}`;
   }
 
   // --- صوت بسيط
@@ -378,13 +378,13 @@
     const text = location.href;
     try {
       if(navigator.share && location.protocol !== 'file:'){
-        await navigator.share({ title: document.title, text: 'موعد عيد ميلاد عبدالمجيد 🎂', url: text });
+        await navigator.share({ title: document.title, text: 'موعد يوم ميلاد عبدالمجيد!', url: text });
         return;
       }
       await navigator.clipboard.writeText(text);
       notify('تم نسخ الرابط!');
     } catch {
-      notify('قد لا يُسمح بالنسخ التلقائي في الملفات المحلية — انسخه يدويًا لو سمحت.');
+      notify('قد لا يُسمح بالنسخ التلقائي في الملفات المحلية , جرب نسخ الرابط بنفسك.');
     }
   });
 
@@ -400,8 +400,8 @@ BEGIN:VEVENT
 DTSTART:${y}0902T000000
 DTEND:${y}0902T235900
 RRULE:FREQ=YEARLY;BYMONTH=9;BYMONTHDAY=2
-SUMMARY:يوم ميلاد عبدالمجيد 🎂
-DESCRIPTION:لا تنسَ تقول: كل عام وأنا بخير! 🥳
+SUMMARY:يوم ميلاد عبدالمجيد!
+DESCRIPTION:لا تنسَ تقول: كل عام وأنت بخير! 🥳
 END:VEVENT
 END:VCALENDAR`;
     const blob = new Blob([ics], {type:'text/calendar'});
@@ -436,7 +436,7 @@ END:VCALENDAR`;
     x.fillText(`${String(day).padStart(2,'0')} : ${String(hr).padStart(2,'0')} : ${String(min).padStart(2,'0')} : ${String(sec).padStart(2,'0')}`, W/2, 360);
     x.font='bold 36px system-ui, -apple-system, Segoe UI, Roboto';
     x.fillText('أيام   ساعات   دقائق   ثوانٍ', W/2, 420);
-    x.font='100px "Apple Color Emoji","Segoe UI Emoji",sans-serif'; x.fillText('🎂', W/2, 520);
+    x.font='100px "Apple Color Emoji","Segoe UI Emoji",sans-serif'; x.fillText('!', W/2, 520);
     const url = c.toDataURL('image/png');
     const a = document.createElement('a'); a.href=url; a.download='countdown.png';
     document.body.appendChild(a); a.click(); setTimeout(()=>a.remove(),0);
