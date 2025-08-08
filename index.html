@@ -24,26 +24,24 @@
     --glass: rgba(255,255,255,0.08);
     --shadow: 0 30px 50px rgba(0,0,0,0.35);
     --radius: 18px;
-    --panel-bg: rgba(16,16,22,.78); /* settings panel */
+    --panel-bg: rgba(16,16,22,.82); /* settings panel */
     --border-soft: rgba(255,255,255,0.10);
     --progress-bg:#23232a;
   }
   /* Manual Light Theme Override */
   body.theme-light{
-    --bg1:#fafafa;
-    --bg2:#f0f2f6;
-    --tone1:#e8edff;  /* light pastel tints so it won't look dark */
-    --tone2:#ffe6f6;
-    --text:#141418;
-    --sub:#52525b;
-    --card:#ffffffd9;
-    --glass: rgba(0,0,0,.06);
-    --panel-bg: rgba(15,15,20,.82); /* keep panel slightly dark for contrast */
-    --border-soft: rgba(0,0,0,0.10);
-    --progress-bg:#e5e7eb;
+    --bg1:#ffffff;
+    --bg2:#f6f7fb;
+    --tone1:#eef3ff;
+    --tone2:#ffeaf7;
+    --text:#141418;     /* black-ish for all text */
+    --sub:#141418;      /* also black per request */
+    --card:#ffffffee;
+    --glass: rgba(0,0,0,.05);
+    --panel-bg: rgba(15,15,20,.9);  /* keep panel dark */
+    --border-soft: rgba(0,0,0,0.12);
+    --progress-bg:#e7e9ee;
   }
-  /* Manual Dark (non-amoled) */
-  body.theme-dark{ /* nothing special, use defaults */ }
   body.theme-amoled{ background: #000 !important; }
 
   *{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
@@ -82,7 +80,7 @@
     padding:18px 12px; background:color-mix(in srgb, var(--bg1), transparent 70%); overflow:hidden;
   }
   .num{ font-size: clamp(34px, 7vw, 64px); font-weight:900; line-height:1; letter-spacing:.5px; }
-  .lbl{ margin-top:8px; color:var(--sub); font-weight:700; }
+  .lbl{ margin-top:8px; color:var(--sub); font-weight:800; }
   .progress{ margin-top:16px; height:8px; border-radius:999px; background:var(--progress-bg); overflow:hidden; border:1px solid var(--border-soft); }
   .bar{ height:100%; width:0%; background:linear-gradient(90deg, var(--accent), var(--accent2)); transition: width .6s ease; }
   .target{ margin-top:14px; color:var(--sub); font-size:14px; }
@@ -109,23 +107,29 @@
     border:1px solid var(--border-soft); border-radius:14px; box-shadow: var(--shadow);
     padding:12px; display:none; text-align:start;
     z-index: 10010;
-    color: var(--text);
+    color:#F2F2F3; /* keep panel text light always */
     backdrop-filter: blur(14px);
   }
   .panel.open{ display:block; }
+  .panel *{ color:inherit } /* enforce light text inside panel */
+  .panel input[type="text"]{ background:transparent; border:1px solid rgba(255,255,255,.25) }
+  .panel input::placeholder{ color:#d1d5db }
   .row{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:8px 4px; }
   .row label{ font-weight:800; font-size:14px }
-  .row input[type="text"]{ flex:1; padding:8px; border-radius:10px; border:1px solid var(--border-soft); background:transparent; color:var(--text); }
   .colors{ display:flex; gap:8px; flex-wrap:wrap; margin-top:6px; }
   .sw{ width:28px; height:28px; border-radius:50%; border:2px solid #ffffffaa; cursor:pointer; }
   .switch{ position:relative; width:48px; height:28px; border-radius:999px; background:#2a2a33; border:1px solid #ffffff24; }
   .switch input{ display:none; }
   .knob{ position:absolute; top:2px; inset-inline-start:2px; width:24px; height:24px; border-radius:50%; background:#fff; transition: all .2s ease; }
   .switch input:checked + .knob{ inset-inline-start:22px; }
-  .hint{ color:var(--sub); font-size:12px; margin-top:4px }
+  .hint{ color:#cbd5e1; font-size:12px; margin-top:4px }
   .sr-only{ position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
   #confetti{ position:fixed; inset:0; pointer-events:none; z-index: 50; }
   @media (max-width:640px){ .grid{grid-template-columns: repeat(2,1fr);} }
+  /* Ensure absolutely everything outside panel goes dark text on light theme */
+  body.theme-light, body.theme-light .wrap, body.theme-light .card, body.theme-light header, 
+  body.theme-light h1, body.theme-light .num, body.theme-light .lbl, body.theme-light .target,
+  body.theme-light footer, body.theme-light .ghost { color:#141418; }
 </style>
 </head>
 <body>
@@ -167,7 +171,7 @@
 
   <div class="wrap">
     <header>
-      <span class="badge">يوم ميلاد <span id="who">مجودي</span> 🎉</span>
+      <span class="badge" id="badgeTitle">عيد ميلاد عبدالمجيد 🎉</span>
       <h1>العدّ التنازلي إلى <span id="dateTitle">2 سبتمبر</span></h1>
       <p class="sub">كل ثانية تقرّبنا من الكيكة 🎂</p>
     </header>
@@ -241,7 +245,7 @@
     if(mode === 'auto'){
       mode = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
     }
-    if(mode === 'light'){ document.body.classList.add('theme-light'); themeColorMeta.content = '#fafafa'; }
+    if(mode === 'light'){ document.body.classList.add('theme-light'); themeColorMeta.content = '#ffffff'; }
     else if(mode === 'amoled'){ document.body.classList.add('theme-amoled'); themeColorMeta.content = '#000000'; }
     else { document.body.classList.add('theme-dark'); themeColorMeta.content = '#0b0b0f'; }
 
@@ -292,8 +296,9 @@
   reduced.checked = stg.reduced;
 
   function updateNames(){
-    who.textContent = stg.name;
-    boomName.textContent = stg.name;
+    // نحافظ على الاسم في رسالة التهنئة فقط
+    const boomName = document.getElementById('boomName');
+    if(boomName) boomName.textContent = stg.name;
   }
 
   // --- الوقت في الرياض
@@ -476,8 +481,6 @@ END:VCALENDAR`;
   // --- بداية
   applyTheme(); updateNames();
   update(); setInterval(update, 1000);
-
-  // --- تفاعل الثيم الفوري مع النظام
   matchMedia('(prefers-color-scheme: light)').addEventListener('change', ()=>{ if(stg.theme==='auto'){ applyTheme(); }});
 })();
 </script>
