@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>العدّ التنازلي ليوم ميلادك 🎂</title>
+<meta name="description" content="عدّ تنازلي أنيق ليوم 2 سبتمبر يعمل دون إنترنت وعلى كل الأجهزة، قابل للتخصيص بالكامل (اسمك، الثيم، الألوان، حركة القطيطات) ومضبوط على توقيت الرياض." />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎂</text></svg>">
+<meta name="theme-color" content="#0b0b0f" id="themeColor">
+<style>
+  :root{
+    --bg1:#0f0f11;
+    --bg2:#1b1b20;
+    --amoled:#000;
+    --accent:#FF7EDB;
+    --accent2:#7CF5FF;
+    --card:#111116cc;
+    --text:#F2F2F3;
+    --sub:#B6B6BF;
+    --glass: rgba(255,255,255,0.08);
+    --shadow: 0 30px 50px rgba(0,0,0,0.35);
+    --radius: 18px;
+  }
+  @media (prefers-color-scheme: light){
+    :root{
+      --bg1:#fafafa; --bg2:#f0f2f6; --text:#141418; --sub:#5a5a66;
+      --card:#ffffffd9; --glass: rgba(0,0,0,.06);
+    }
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
+    background: radial-gradient(1200px 800px at 20% 10%, #2a2139 0%, transparent 40%),
+                radial-gradient(1000px 700px at 80% 10%, #223a5e 0%, transparent 45%),
+                linear-gradient(160deg, var(--bg1), var(--bg2));
+    color:var(--text);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  }
+  body.amoled{ background: var(--amoled) }
+  .wrap{ width:min(980px, 100%); text-align:center; }
+  header{ margin-bottom:18px; }
+  .badge{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:8px 14px; border-radius:999px;
+    background:linear-gradient(90deg, var(--accent), var(--accent2));
+    color:#0b0b0d; font-weight:800; box-shadow: var(--shadow);
+  }
+  h1{ margin:12px 0 6px; font-size: clamp(28px, 4.8vw, 48px); letter-spacing: .3px; }
+  .sub{ margin:8px 0 16px; color:var(--sub) }
+  .card{
+    margin-inline:auto; background:linear-gradient(180deg, var(--glass), rgba(255,255,255,0.03));
+    border:1px solid rgba(255,255,255,0.08); border-radius:var(--radius);
+    padding:20px 16px; box-shadow: var(--shadow); backdrop-filter: blur(10px);
+  }
+  .grid{ display:grid; grid-template-columns: repeat(4, minmax(120px, 1fr)); gap:12px; }
+  .box{
+    position:relative; border:1px solid rgba(255,255,255,0.08); border-radius:14px;
+    padding:18px 12px; background:#0b0b0f80; overflow:hidden;
+  }
+  body.light .box{background:#ffffff9e; border-color:#00000012}
+  .num{ font-size: clamp(34px, 7vw, 64px); font-weight:900; line-height:1; letter-spacing:.5px; }
+  .lbl{ margin-top:8px; color:var(--sub); font-weight:700; }
+  .progress{ margin-top:16px; height:8px; border-radius:999px; background:#23232a; overflow:hidden; border:1px solid rgba(255,255,255,0.07); }
+  .bar{ height:100%; width:0%; background:linear-gradient(90deg, var(--accent), var(--accent2)); transition: width .6s ease; }
+  .target{ margin-top:14px; color:var(--sub); font-size:14px; }
+  footer{ margin-top:14px; color:var(--sub); font-size:13px; }
+  .boom{ font-size: clamp(26px, 4.6vw, 42px); margin:12px 0 0; font-weight:900; display:none; }
+  .btns{ margin-top:16px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+  button.btn{
+    cursor:pointer; border:none; padding:11px 16px; border-radius:12px; font-weight:800;
+    background:linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+  .ghost{ background:transparent; color:var(--text); border:1px solid rgba(255,255,255,0.12); }
+  .iconbtn{
+    position:fixed; top: max(12px, env(safe-area-inset-top)); inset-inline-start: max(12px, env(safe-area-inset-left));
+    background: #00000055; border:1px solid #ffffff29; border-radius:12px; padding:8px 10px; cursor:pointer;
+    color: #fff; display:flex; align-items:center; gap:6px; font-weight:700; backdrop-filter: blur(8px);
+  }
+  .panel{
+    position:fixed; inset-inline-start: max(12px, env(safe-area-inset-left)); top:calc(max(12px, env(safe-area-inset-top)) + 46px);
+    width:min(320px, 92vw);
+    background:linear-gradient(180deg, var(--glass), rgba(255,255,255,0.03));
+    border:1px solid rgba(255,255,255,0.1); border-radius:14px; box-shadow: var(--shadow);
+    padding:12px; display:none; text-align:start;
+  }
+  .panel.open{ display:block; }
+  .row{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:8px 4px; }
+  .row label{ font-weight:700; font-size:14px }
+  .row input[type="text"]{ flex:1; padding:8px; border-radius:10px; border:1px solid rgba(255,255,255,0.15); background:transparent; color:var(--text); }
+  .colors{ display:flex; gap:8px; flex-wrap:wrap; margin-top:6px; }
+  .sw{ width:28px; height:28px; border-radius:50%; border:2px solid #ffffffaa; cursor:pointer; }
+  .switch{ position:relative; width:48px; height:28px; border-radius:999px; background:#2a2a33; border:1px solid #ffffff24; }
+  .switch input{ display:none; }
+  .knob{ position:absolute; top:2px; inset-inline-start:2px; width:24px; height:24px; border-radius:50%; background:#fff; transition: all .2s ease; }
+  .switch input:checked + .knob{ inset-inline-start:22px; }
+  .hint{ color:var(--sub); font-size:12px; margin-top:4px }
+  .kittens{ position:fixed; inset:0; pointer-events:none; }
+  .kit{ position:absolute; font-size:24px; animation: float 8s linear infinite; }
+  @keyframes float{
+    0%{ transform: translateY(110%); opacity:0 }
+    10%{ opacity:1 }
+    100%{ transform: translateY(-10%); opacity:0 }
+  }
+  .sr-only{
+    position:absolute !important; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+  }
+  @media (max-width:640px){ .grid{grid-template-columns: repeat(2,1fr);} }
+</style>
+</head>
+<body>
+  <button class="iconbtn" id="gear" aria-expanded="false" aria-controls="panel" title="الإعدادات">⚙️ إعدادات</button>
+  <section class="panel" id="panel" role="region" aria-label="لوحة الإعدادات">
+    <div class="row">
+      <label for="name">الاسم في التهنئة:</label>
+      <input id="name" type="text" placeholder="مثال: مجودي">
+    </div>
+    <div class="row">
+      <label>الثيم:</label>
+      <div style="display:flex; gap:8px; flex-wrap:wrap">
+        <button class="btn ghost" data-theme="auto">تلقائي</button>
+        <button class="btn ghost" data-theme="dark">داكن</button>
+        <button class="btn ghost" data-theme="light">فاتح</button>
+        <button class="btn ghost" data-theme="amoled">أسود خالص</button>
+      </div>
+    </div>
+    <div class="row" style="align-items:flex-start">
+      <div>
+        <label>الألوان:</label>
+        <div class="colors" id="colorPresets"></div>
+        <div class="hint">تقدر تختار لونين متدرّجين</div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:6px">
+        <input type="color" id="c1" value="#FF7EDB" title="اللون 1">
+        <input type="color" id="c2" value="#7CF5FF" title="اللون 2">
+      </div>
+    </div>
+    <div class="row">
+      <label>تقليل الحركة:</label>
+      <label class="switch"><input id="reduced" type="checkbox"><span class="knob"></span></label>
+    </div>
+    <div class="row">
+      <label>وضع القطيطات 🐈:</label>
+      <label class="switch"><input id="cats" type="checkbox"><span class="knob"></span></label>
+    </div>
+    <div class="row">
+      <button class="btn" id="save">حفظ</button>
+      <span class="hint">الإعدادات تُحفَظ على جهازك فقط</span>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <header>
+      <span class="badge">يوم ميلاد <span id="who">مجودي</span> 🎉</span>
+      <h1>العدّ التنازلي إلى <span id="dateTitle">2 سبتمبر</span></h1>
+      <p class="sub">كل ثانية تقرّبنا من الكيكة 🎂</p>
+    </header>
+
+    <main class="card">
+      <p class="sr-only" id="live" aria-live="polite">جارٍ تحديث العدّ التنازلي كل ثانية.</p>
+      <div class="grid" aria-labelledby="live">
+        <div class="box" aria-label="الأيام المتبقية">
+          <div class="num" id="days">--</div><div class="lbl">أيام</div>
+        </div>
+        <div class="box" aria-label="الساعات المتبقية">
+          <div class="num" id="hours">--</div><div class="lbl">ساعات</div>
+        </div>
+        <div class="box" aria-label="الدقائق المتبقية">
+          <div class="num" id="minutes">--</div><div class="lbl">دقائق</div>
+        </div>
+        <div class="box" aria-label="الثواني المتبقية">
+          <div class="num" id="seconds">--</div><div class="lbl">ثوانٍ</div>
+        </div>
+      </div>
+
+      <div class="progress" title="كم بقّى؟"><div class="bar" id="bar"></div></div>
+
+      <p class="target" id="targetText">...</p>
+      <h2 class="boom" id="boom">كل عام وأنت بخير يا <span id="boomName">مجودي</span>! 🥳🎂</h2>
+
+      <div class="btns">
+        <button class="btn" id="exportPNG">تصدير كصورة</button>
+        <button class="btn ghost" id="addCalendar">أضِف للتقويم</button>
+        <button class="btn ghost" id="copyLink">نسخ الرابط</button>
+      </div>
+
+      <textarea id="ics" style="position:absolute;left:-9999px;top:-9999px;"></textarea>
+      <canvas id="confetti" style="position:fixed;inset:0;pointer-events:none"></canvas>
+      <div class="kittens" id="kittens" aria-hidden="true"></div>
+    </main>
+
+    <footer>يُحدّث كل ثانية بتوقيت الرياض (UTC+3) • يعمل دون إنترنت • صنع بحب 💜</footer>
+  </div>
+
+<script>
+(function(){
+  // --- ثابت التوقيت
+  const timeZone = "Asia/Riyadh"; // ثابت كما طلبت
+  const MONTH = 8; // سبتمبر = 8 (0-index)
+  const DAY = 2;
+
+  // --- عناصر DOM
+  const dateTitle = document.getElementById('dateTitle');
+  const tText = document.getElementById('targetText');
+  const boom = document.getElementById('boom');
+  const bar = document.getElementById('bar');
+  const who = document.getElementById('who');
+  const boomName = document.getElementById('boomName');
+  const themeColorMeta = document.getElementById('themeColor');
+  const kittensLayer = document.getElementById('kittens');
+
+  // --- إعدادات
+  const defaults = {
+    name: 'مجودي',
+    theme: 'auto', // auto | dark | light | amoled
+    accent1: '#FF7EDB',
+    accent2: '#7CF5FF',
+    reduced: matchMedia('(prefers-reduced-motion: reduce)').matches,
+    cats: false,
+  };
+  const stg = JSON.parse(localStorage.getItem('majoodi@countdown') || 'null') || defaults;
+  function save(){ localStorage.setItem('majoodi@countdown', JSON.stringify(stg)); }
+
+  // --- تطبيق الثيم والألوان
+  function applyTheme(){
+    document.body.classList.remove('light','dark','amoled');
+    if(stg.theme === 'dark'){ document.body.classList.add('dark'); themeColorMeta.content = '#0b0b0f'; }
+    else if(stg.theme === 'light'){ document.body.classList.add('light'); themeColorMeta.content = '#fafafa'; }
+    else if(stg.theme === 'amoled'){ document.body.classList.add('amoled'); themeColorMeta.content = '#000000'; }
+    else{ // auto
+      const prefersLight = matchMedia('(prefers-color-scheme: light)').matches;
+      document.body.classList.toggle('light', prefersLight);
+      document.body.classList.toggle('dark', !prefersLight);
+      themeColorMeta.content = prefersLight ? '#fafafa' : '#0b0b0f';
+    }
+    document.documentElement.style.setProperty('--accent', stg.accent1);
+    document.documentElement.style.setProperty('--accent2', stg.accent2);
+  }
+
+  // --- واجهة الإعدادات
+  const gear = document.getElementById('gear');
+  const panel = document.getElementById('panel');
+  const nameInput = document.getElementById('name');
+  const c1 = document.getElementById('c1');
+  const c2 = document.getElementById('c2');
+  const reduced = document.getElementById('reduced');
+  const cats = document.getElementById('cats');
+  const presetsEl = document.getElementById('colorPresets');
+  const presetPairs = [
+    ['#FF7EDB','#7CF5FF'], ['#FFB703','#FB5607'], ['#22C55E','#06B6D4'],
+    ['#A78BFA','#60A5FA'], ['#F43F5E','#F59E0B'], ['#14B8A6','#84CC16']
+  ];
+  presetPairs.forEach(([a,b])=>{
+    const w = document.createElement('div'); w.style.display='flex'; w.style.gap='6px';
+    const s1 = document.createElement('button'); s1.className='sw'; s1.style.background=a; s1.title=a;
+    const s2 = document.createElement('button'); s2.className='sw'; s2.style.background=b; s2.title=b;
+    w.appendChild(s1); w.appendChild(s2);
+    s1.onclick = () => { stg.accent1=a; c1.value=a; applyTheme(); save(); };
+    s2.onclick = () => { stg.accent2=b; c2.value=b; applyTheme(); save(); };
+    presetsEl.appendChild(w);
+  });
+  document.querySelectorAll('[data-theme]').forEach(btn=>{
+    btn.addEventListener('click',()=>{ stg.theme = btn.dataset.theme; applyTheme(); save(); notify('تم تطبيق الثيم'); });
+  });
+  document.getElementById('save').onclick = () => {
+    stg.name = nameInput.value.trim() || defaults.name;
+    stg.accent1 = c1.value; stg.accent2 = c2.value;
+    stg.reduced = !!reduced.checked; stg.cats = !!cats.checked;
+    applyTheme(); updateNames(); toggleKittens();
+    save(); notify('تم الحفظ ✅');
+  };
+  gear.onclick = ()=>{
+    const open = !panel.classList.contains('open');
+    panel.classList.toggle('open', open);
+    gear.setAttribute('aria-expanded', String(open));
+    if(open) { nameInput.focus(); }
+  };
+
+  // تهيئة الحقول
+  nameInput.value = stg.name; c1.value = stg.accent1; c2.value = stg.accent2;
+  reduced.checked = stg.reduced; cats.checked = stg.cats;
+
+  function updateNames(){
+    who.textContent = stg.name;
+    boomName.textContent = stg.name;
+  }
+
+  // --- الوقت في الرياض
+  function nowInRiyadh(){
+    const now = new Date();
+    return new Date(now.toLocaleString('en-US', { timeZone }));
+  }
+
+  function buildTargetDate(){
+    const now = nowInRiyadh();
+    let year = now.getFullYear();
+    let target = new Date(`${year}-09-02T00:00:00+03:00`);
+    if (now > target) { year += 1; target = new Date(`${year}-09-02T00:00:00+03:00`); }
+    dateTitle.textContent = `2 سبتمبر ${year}`;
+    return target;
+  }
+
+  let target = buildTargetDate();
+
+  function pad(n){ return String(n).padStart(2,'0'); }
+
+  // --- كونفيتي
+  const cvs = document.getElementById('confetti');
+  const ctx = cvs.getContext('2d', {alpha:true});
+  let confetti = [];
+  function resize(){ cvs.width = innerWidth; cvs.height = innerHeight; }
+  addEventListener('resize', resize, {passive:true}); resize();
+  function confettiBurst(){
+    if(stg.reduced) return;
+    confetti = [];
+    for(let i=0;i<180;i++){
+      confetti.push({
+        x: Math.random()*cvs.width,
+        y: -20*Math.random(),
+        vx:(Math.random()-.5)*2.6,
+        vy: Math.random()*2.4+1.6,
+        r: Math.random()*5+3,
+        a: Math.random()*Math.PI*2,
+        s: Math.random()*0.2+0.05,
+      });
+    }
+  }
+  function loop(){
+    if(!confetti.length) { requestAnimationFrame(loop); return; }
+    ctx.clearRect(0,0,cvs.width,cvs.height);
+    for(const p of confetti){
+      p.x += p.vx; p.y += p.vy; p.a += p.s;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.a);
+      const g = ctx.createLinearGradient(-p.r,-p.r,p.r,p.r);
+      g.addColorStop(0, getComputedStyle(document.documentElement).getPropertyValue('--accent').trim());
+      g.addColorStop(1, getComputedStyle(document.documentElement).getPropertyValue('--accent2').trim());
+      ctx.fillStyle = g; ctx.fillRect(-p.r,-p.r,p.r*2,p.r*2);
+      ctx.restore();
+      if(p.y > cvs.height+20) p.y = -20, p.x = Math.random()*cvs.width;
+    }
+    requestAnimationFrame(loop);
+  }
+  loop();
+
+  // --- قطيطات
+  const catsChars = ['🐈','🐈‍⬛','😺','😸','😻'];
+  let catsTimer = null;
+  function toggleKittens(){
+    kittensLayer.innerHTML = '';
+    if(!stg.cats) { if(catsTimer) clearInterval(catsTimer); catsTimer=null; return; }
+    const makeKitten = ()=>{
+      const el = document.createElement('div');
+      el.className='kit';
+      el.textContent = catsChars[Math.floor(Math.random()*catsChars.length)];
+      el.style.left = Math.random()*100 + '%';
+      el.style.animationDuration = (6 + Math.random()*6) + 's';
+      el.style.fontSize = (20 + Math.random()*16) + 'px';
+      kittensLayer.appendChild(el);
+      setTimeout(()=>{ el.remove(); }, 12000);
+    };
+    makeKitten();
+    catsTimer = setInterval(makeKitten, 1200);
+  }
+
+  // --- تحديث العد
+  function update(){
+    const now = nowInRiyadh();
+    const jan1 = new Date(`${target.getFullYear()}-01-01T00:00:00+03:00`);
+    const total = target - jan1;
+    const elapsed = now - jan1;
+    const pct = Math.max(0, Math.min(100, (elapsed/total)*100));
+    bar.style.width = pct + "%";
+
+    let diff = target - now;
+    if (diff <= 0){
+      ['days','hours','minutes','seconds'].forEach(id => document.getElementById(id).textContent="00");
+      boom.style.display = "block";
+      confettiBurst();
+      celebrate();
+      return;
+    }
+    const sec = Math.floor(diff/1000)%60;
+    const min = Math.floor(diff/(1000*60))%60;
+    const hr  = Math.floor(diff/(1000*60*60))%24;
+    const day = Math.floor(diff/(1000*60*60*24));
+
+    document.getElementById('days').textContent = pad(day);
+    document.getElementById('hours').textContent = pad(hr);
+    document.getElementById('minutes').textContent = pad(min);
+    document.getElementById('seconds').textContent = pad(sec);
+
+    const f = new Intl.DateTimeFormat('ar-SA', { timeZone, dateStyle: 'full', timeStyle: 'short' });
+    tText.textContent = `الوجهة: ${f.format(target)} — الآن: ${f.format(now)}`;
+  }
+
+  // --- احتفال صوتي صغير (مضمّن Base64 لتعمل بدون إنترنت)
+  const audioData = "data:audio/mp3;base64,//uQZAAAAAAAAAAAAAAAAAAAA..."; // قصير جدًا placeholder صامت
+  let played = false;
+  function celebrate(){
+    if(played) return; played = true;
+    if(stg.reduced) return;
+    try{
+      const a = new Audio(audioData);
+      a.play().catch(()=>{});
+    }catch{}
+  }
+
+  // --- مشاركة/نسخ الرابط
+  document.getElementById('copyLink').addEventListener('click', async () => {
+    const text = location.href;
+    try {
+      if(navigator.share && location.protocol !== 'file:'){
+        await navigator.share({ title: document.title, text: 'موعد عيد ميلادي 🎂', url: text });
+        return;
+      }
+      await navigator.clipboard.writeText(text);
+      notify('تم نسخ الرابط!');
+    } catch {
+      notify('لو سمحت انسخ الرابط يدويًا (قد لا يُسمح بالنسخ التلقائي في الملفات المحلية).');
+    }
+  });
+
+  // --- إنشاء ملف تقويم ICS
+  document.getElementById('addCalendar').addEventListener('click', () => {
+    const y = target.getFullYear();
+    const ics =
+`BEGIN:VCALENDAR
+VERSION:2.0
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+DTSTART:${y}0902T000000
+DTEND:${y}0902T235900
+RRULE:FREQ=YEARLY;BYMONTH=9;BYMONTHDAY=2
+SUMMARY:يوم ميلاد ${stg.name} 🎂
+DESCRIPTION:لا تنسَ تقول: كل عام وأنا بخير! 🥳
+END:VEVENT
+END:VCALENDAR`;
+    const blob = new Blob([ics], {type:'text/calendar'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = (stg.name || 'birthday') + '.ics';
+    document.body.appendChild(a); a.click();
+    setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 0);
+  });
+
+  // --- تصدير صورة PNG بدون مكتبات خارجية
+  document.getElementById('exportPNG').addEventListener('click', () => {
+    const now = nowInRiyadh();
+    let diff = target - now;
+    const sec = Math.max(0, Math.floor(diff/1000)%60);
+    const min = Math.max(0, Math.floor(diff/(1000*60))%60);
+    const hr  = Math.max(0, Math.floor(diff/(1000*60*60))%24);
+    const day = Math.max(0, Math.floor(diff/(1000*60*60*24)));
+    const c = document.createElement('canvas');
+    const W = 1200, H = 630; c.width=W; c.height=H;
+    const x = c.getContext('2d');
+    // خلفية متدرّجة
+    const g = x.createLinearGradient(0,0,W,H);
+    g.addColorStop(0, getComputedStyle(document.documentElement).getPropertyValue('--accent').trim());
+    g.addColorStop(1, getComputedStyle(document.documentElement).getPropertyValue('--accent2').trim());
+    x.fillStyle = g; x.fillRect(0,0,W,H);
+    // بطاقة
+    x.fillStyle = 'rgba(0,0,0,.28)'; x.fillRect(40,40,W-80,H-80);
+    x.fillStyle = '#fff'; x.font='bold 52px system-ui, -apple-system, Segoe UI, Roboto'; x.textAlign='center';
+    x.fillText(`العدّ التنازلي إلى 2 سبتمبر`, W/2, 140);
+    x.font='bold 44px system-ui, -apple-system, Segoe UI, Roboto';
+    x.fillText(`يوم ميلاد ${stg.name}`, W/2, 200);
+    x.font='900 120px system-ui, -apple-system, Segoe UI, Roboto';
+    x.fillText(`${String(day).padStart(2,'0')} : ${String(hr).padStart(2,'0')} : ${String(min).padStart(2,'0')} : ${String(sec).padStart(2,'0')}`, W/2, 360);
+    x.font='bold 36px system-ui, -apple-system, Segoe UI, Roboto';
+    x.fillText('أيام   ساعات   دقائق   ثوانٍ', W/2, 420);
+    // حلوى صغيرة
+    x.font='100px "Apple Color Emoji","Segoe UI Emoji",sans-serif'; x.fillText('🎂', W/2, 520);
+    const url = c.toDataURL('image/png');
+    const a = document.createElement('a'); a.href=url; a.download='countdown.png';
+    document.body.appendChild(a); a.click(); setTimeout(()=>a.remove(),0);
+  });
+
+  // --- إشعار بسيط
+  function notify(msg){
+    const n = document.createElement('div');
+    n.textContent = msg;
+    n.style.position='fixed'; n.style.bottom='24px'; n.style.right='24px';
+    n.style.background='rgba(20,20,26,.92)'; n.style.padding='10px 14px';
+    n.style.border='1px solid rgba(255,255,255,.12)'; n.style.borderRadius='10px';
+    n.style.zIndex='9999'; n.style.boxShadow='var(--shadow)'; n.style.color='#fff';
+    document.body.appendChild(n);
+    setTimeout(()=>n.remove(), 2200);
+  }
+
+  // --- بداية
+  applyTheme(); updateNames(); toggleKittens();
+  update(); setInterval(update, 1000);
+
+  // --- تفاعل الثيم الفوري مع النظام
+  matchMedia('(prefers-color-scheme: light)').addEventListener('change', ()=>{ if(stg.theme==='auto'){ applyTheme(); }});
+})();
+</script>
+</body>
+</html>
