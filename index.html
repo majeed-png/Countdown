@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="color-scheme" content="light dark">
 <title>العدّ التنازلي ليوم ميلاد عبدالمجيد 💚</title>
-<meta name="description" content="عدّ تنازلي أنيق ليوم 2 سبتمبر (يوم ميلاد عبدالمجيد) يعمل دون إنترنت، قابل لتغيير الثيم والألوان، ومضبوط على توقيت الرياض." />
+<meta name="description" content="عدّ تنازلي أنيق ليوم 2 سبتمبر (يوم ميلاد عبدالمجيد)، قابل لتغيير الثيم والألوان، ومضبوط على توقيت الرياض." />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💚</text></svg>">
 <meta name="theme-color" content="#0b0b0f" id="themeColor">
 <style>
@@ -137,7 +137,7 @@
   <div id="backdrop" aria-hidden="true"></div>
   <section class="panel" id="panel" role="dialog" aria-label="لوحة الإعدادات">
     <div class="row">
-      <label>الثيم:</label>
+      <label>السمة:</label>
       <div style="display:flex; gap:8px; flex-wrap:wrap">
         <button class="btn ghost" data-theme="auto">تلقائي</button>
         <button class="btn ghost" data-theme="dark">داكن</button>
@@ -403,7 +403,7 @@
     document.getElementById('seconds').textContent = pad(sec);
 
     const f = new Intl.DateTimeFormat('ar-SA', { timeZone, dateStyle: 'full', timeStyle: 'short' });
-    tText.textContent = `الوجهة: ${f.format(target)} — الآن: ${f.format(now)}`;
+    tText.textContent = `الموعد: ${f.format(target)} — الآن: ${f.format(now)}`;
   }
 
   // --- صوت بسيط
